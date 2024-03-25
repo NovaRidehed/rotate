@@ -17,22 +17,27 @@
             string[] neworder = new string[antal];
             // TODO
             
-                int nummer = 0;
-                foreach(string str in strings)
+            int nummer = 0;
+            foreach(string str in strings)
+            {
+                if((nummer - n) >= 0)
+                neworder[nummer] = strings[nummer - n];
+                else if ((nummer -n) < 0)
                 {
-                    if((nummer - n) >= 0)
-                    neworder[nummer] = strings[nummer - n];
-                    else if ((nummer -n) < 0)
+                    // Detta blir i specialfall när nummret blir mindre än noll.
+                    // nummer - n, arrayen - antalet rotationer. Då får man reda på vilken array den ska ha.
+                    // Sen använder man modul operator för att ta reda på resten.
+                    // Sen backar man tillbaka så många steg från antalet för att få reda den nya arrayen.
+                    int number = ((nummer - n)%antal) + antal;
+                    // I vissa specialfall blir number lika med antalet. Number blir då noll.
+                    if(number == antal)
                     {
-                        int number = ((nummer - n)%antal) + antal;
-                        if(number == antal)
-                        {
-                        number = 0;
-                        }
-                        neworder[nummer] = strings[number];
+                    number = 0;
                     }
-                    nummer++;
+                    neworder[nummer] = strings[number];
                 }
+                nummer++;
+            }
             return neworder;
 
         }
